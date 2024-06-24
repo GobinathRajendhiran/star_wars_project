@@ -1,0 +1,121 @@
+<div class="header">
+    <h1>
+       <b>STAR WARS</b>
+    </h1>
+    <div>
+        THE SWAPI PROJECT
+    </div>
+</div>
+
+<div class="container detailsSectionMain">
+    <div class="row" *ngIf="tableSection">
+        <div class="col-2 filtersMainSection">
+            <div>FILTERS</div>
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedMovie">
+                <option selected>Movie Name</option>
+                <option *ngFor="let movie of movieList" value="{{movie.title}}">{{movie.title}}</option>
+            </select>
+
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedSpecies">
+                <option selected>Species</option>
+                <option value="Human">Human</option>
+                <option value="Droid">Droid</option>
+            </select>
+
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedVehicle">
+                <option selected>Vehicle</option>
+                <option *ngFor="let vehicle of vehicleList" value="{{vehicle.name}}">{{vehicle.name}}</option>
+            </select>
+
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedStarShip">
+                <option selected>Star ship</option>
+                <option *ngFor="let ship of starShipList" value="{{ship.name}}">{{ship.name}}</option>
+            </select>
+
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedBirthYear">
+                <option selected>Birth year</option>
+                <option *ngFor="let year of birthYearList" value="{{year}}">{{year}}</option>
+            </select>
+            <button class="submitSearchButon" (click)="filterDataOnTable()">SEARCH</button>
+        </div>
+
+        <div class="col-10">
+            <div class="tableDataMainSection">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">S No</th>
+                        <th scope="col">Charector Name</th>
+                        <th scope="col">Species</th>
+                        <th scope="col">Birth Year</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of filteresDataFromTotalData; let i = index" (click)="selectSingleDataFromTable(data.id)" class="tableRowLoop">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{data.name}}</td>
+                            <!-- <td>asdhgasdhj</td> -->
+                            <td>{{data.speciesType}}</td>
+                            <td>{{data.birth_year}}</td>
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+    <div class="row previewSection" *ngIf="previewSection">
+        <div class="col-3">
+            <div class="mainDivForLeftPreviewPanel">
+                <div class="backToTableSection" (click)="navigateToTablePage()">
+                    ←-- back to table
+                </div>
+                <div class="profileImageSection d-flex justify-content-center">
+                    <img src="favicon.ico" class="previwProfileImage" alt="PROFILE IMAGE">
+                </div>
+                <div class="profilePhoto">
+                    <div class="detailsOfSelectedPeople">
+                       <b>Name :</b> {{selectedDataToPreview.name}}<br>
+                        <b>Born :</b> {{selectedDataToPreview.birth_year}}<br>
+                        <b>Gender :</b> {{selectedDataToPreview.gender}}<br>
+                        <b>Height :</b> {{selectedDataToPreview.height}}<br>
+                        <b>Weight :</b> {{selectedDataToPreview.mass}}<br>
+                        <b>Created at :</b> {{selectedDataToPreview.created}}<br>
+                        <b>Edited at :</b> {{selectedDataToPreview.edited}}<br>
+                        <b>Hair color :</b> {{selectedDataToPreview.hair_color}}<br>
+                        <b>Eye color :</b> {{selectedDataToPreview.eye_color}}<br>
+                        <b>Skin color :</b> {{selectedDataToPreview.skin_color}}<br>
+                        <b>species :</b> {{selectedDataToPreview.speciesType}}<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="divForRightPreviewPanel">
+                <h3>
+                    FILMS
+                </h3>
+                <div class="selectedPreviewFilmData">
+                    <div class="selectedDataFilmLoop" *ngFor="let film of selectedDataToPreview.films">
+                        {{film.title}} <br>
+                    </div>
+                </div>
+                <h3>
+                    VEHICLES
+                </h3>
+                <div class="selectedPreviewVehiclesDetails">
+                    <div class="selectedDataVehicleLoop" *ngFor="let vehicle of selectedDataToPreview.vehicles">
+                        {{vehicle.name}} <br>
+                    </div>
+                </div>
+                <h3>
+                    STAR SHIP
+                </h3>
+                <div class="selectedPreviewStarShipDetails">
+                    <div class="selectedDataStarShipDetailsLoop" *ngFor="let ship of selectedDataToPreview.starships">
+                        {{ship.name}} <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
